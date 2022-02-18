@@ -1,15 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace EFCoreCodeFirstSample.Models.Entities
 {
-    internal abstract class BaseEntity
+    internal class YazarDetay : BaseEntity
     {
-        public int Id { get; set; }
+        public string Address { get; set; }
+
+        public virtual Yazar Yazar { get; set; }
     }
 }

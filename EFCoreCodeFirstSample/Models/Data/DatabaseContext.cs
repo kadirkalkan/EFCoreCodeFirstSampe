@@ -1,4 +1,5 @@
 ﻿using EFCoreCodeFirstSample.Models.Entities;
+using EFCoreCodeFirstSample.Models.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,7 @@ namespace EFCoreCodeFirstSample.Models.Data
     internal class DatabaseContext : DbContext
     {
         public DbSet<Yazar> Yazarlar { get; set; }
+        public DbSet<YazarDetay> YazarDetaylar { get; set; }
         public DbSet<Kitap> Kitaplar { get; set; }
         public DbSet<Tur> Turler { get; set; }
         public DbSet<KitapTur> KitapTurleri { get; set; }
@@ -23,11 +25,11 @@ namespace EFCoreCodeFirstSample.Models.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<KitapTur>().HasKey(x => new { x.KitapId, x.TurId });
-            modelBuilder.Entity<Tur>().HasData(
-                new Tur() { Id = 1, Name = "Fantezi" },
-                new Tur() { Id = 2, Name = "Macera" }
-                );
+            modelBuilder.ApplyConfiguration(new KitapEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new TurEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new YazarEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new KitapTurEntityTypeConfiguration());
+            modelBuilder.ApplyConfiguration(new YazarDetayEntityTypeConfiguration());
         }
 
 
